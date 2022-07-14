@@ -18,6 +18,7 @@ func newServer() *TemplateServiceServer {
 	return s
 }
 
+// Starts the GRPC server
 func main() {
 
 	// if we are using in production, make this a flag, or read from an environmental variable

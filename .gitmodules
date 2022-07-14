@@ -1,0 +1,6 @@
+[submodule "grpc_server/webapp-template"]
+	path = grpc_server/webapp-template
+	url = https://github.com/mikehikes/webapp-template
+[submodule "webapp-template"]
+	path = webapp-template
+	url = https://github.com/mikehikes/webapp-template
