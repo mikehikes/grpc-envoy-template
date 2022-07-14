@@ -29,5 +29,3 @@ services:
       - ./grpc_server:/run
     # stdin_open: true
     tty: true
-networks:
-  grpcstack:
