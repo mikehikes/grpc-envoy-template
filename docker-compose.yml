@@ -2,6 +2,8 @@ version: "3.9"
 services:
   envoy:
     image: envoyproxy/envoy:v1.20-latest
+    entrypoint: /usr/local/bin/envoy
+    command:  -c /etc/envoy/envoy.yaml -l trace --log-path /tmp/envoy_info.log
     networks:
       grpcstack:
         aliases:
@@ -19,6 +21,8 @@ services:
       grpcstack:
         aliases:
           - grpcserver
+    expose:
+      - "9090"
     ports:
       - "9090:9090" # gRPC server's gRPC API
     volumes: 

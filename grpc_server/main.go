@@ -21,7 +21,7 @@ func main() {
 	// if we are using in production, make this a flag, or read from an environmental variable
 	port := 9090
 
-	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))
+	lis, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%d", port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
