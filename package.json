@@ -1,0 +1,19 @@
+{
+  "name": "grpc-envoy-template-protoc-compile",
+  "version": "1.0.0",
+  "description": "This repo is a template/example for implementing a protobuf-base microservice running on the `grpc-web`/`envoy proxy` stack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@protobuf-ts/grpcweb-transport": "^2.7.0",
+    "@protobuf-ts/protoc": "^2.7.0",
+    "protoc-gen-ts": "^0.8.5"
+  },
+  "devDependencies": {
+    "@protobuf-ts/plugin": "^2.7.0"
+  }
+}

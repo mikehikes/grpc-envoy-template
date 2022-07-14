@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package template_service;
+
+option go_package = "./template_service";
+
+service TemplateService {
+  rpc Ping(PingRequest) returns (PingResponse) {}
+  rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {}
+}
+
+message PingRequest {}
+
+// yes, the repsonse to ping should be pong,
+// but we want to adhere to good protobuf style
+message PingResponse {}
+
+message HelloWorldRequest {
+  string name = 1;
+}
+
+message HelloWorldResponse {
+  string message = 1;
+}

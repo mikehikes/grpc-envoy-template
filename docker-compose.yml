@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.20-latest
+    networks:
+      grpcstack:
+        aliases:
+          - envoy
+    ports:
+      - "8099:8099" # Envoy's gRPC API
+      - "9901:9901" # Envoy's HTTP API
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+  grpcserver:
+    image: golang:latest
+    working_dir: /run
+    entrypoint: go run .
+    networks:
+      grpcstack:
+        aliases:
+          - grpcserver
+    ports:
+      - "9090:9090" # gRPC server's gRPC API
+    volumes: 
+      - ./grpc_server:/run
+    # stdin_open: true
+    tty: true
+networks:
+  grpcstack:

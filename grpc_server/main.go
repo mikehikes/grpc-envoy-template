@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"grpc_server/handlers"
 	pb "grpc_server/template_service"
 	"log"
 	"net"
@@ -9,12 +10,8 @@ import (
 	"google.golang.org/grpc"
 )
 
-type TemplateServiceServer struct {
-	pb.UnimplementedTemplateServiceServer
-}
-
-func newServer() *TemplateServiceServer {
-	s := &TemplateServiceServer{}
+func newServer() *handlers.TemplateServiceServer {
+	s := &handlers.TemplateServiceServer{}
 	return s
 }
 
@@ -29,20 +26,6 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	var opts []grpc.ServerOption
-
-	// for production, recommended to use https to encrypt comms between the envoy proxy
-	// if *tls {
-	// 	if *certFile == "" {
-	// 		*certFile = data.Path("x509/server_cert.pem")
-	// 	}
-	// 	if *keyFile == "" {
-	// 		*keyFile = data.Path("x509/server_key.pem")
-	// 	}
-	// 	creds, err := credentials.NewServerTLSFromFile(*certFile, *keyFile)
-	// 	if err != nil {
-	// 		log.Fatalf("Failed to generate credentials %v", err)
-	// 	}
-	// 	opts = []grpc.ServerOption{grpc.Creds(creds)}
 	// }
 	grpcServer := grpc.NewServer(opts...)
 	pb.RegisterTemplateServiceServer(grpcServer, newServer())
