@@ -1,5 +1,3 @@
-.DEFAULT_GOAL := build
-
 # Makefile for protobuf ops
 export GOPATH = ${HOME}/go/pkg
 export GOBIN = ${PWD}/go/bin
@@ -8,23 +6,35 @@ export PROTOC_URL_PREFIX = https://github.com/protocolbuffers/protobuf/releases/
 export PROTOC_VERSION = 21.1
 export PROTOC_OS = $(shell uname -s)
 export PROTOC_ARCH = $(shell uname -m)
-export PROTOC_URL = ${PROTOC_URL_PREFIX}v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-${PROTOC_OS}-${PROTOC_ARCH}.zip
-
+export PROTOC_URL_LINUX = ${PROTOC_URL_PREFIX}v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-${PROTOC_OS}-${PROTOC_ARCH}.zip
+export PROTOC_URL_OSX = ${PROTOC_URL_PREFIX}v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-osx-universal_binary.zip
 
 .PHONY=prereq
 prereq:
 	@mkdir -p ${PWD}/go
 	@mkdir -p ${PWD}/go/bin
 
-.PHONE=intall-node-libraries
+.PHONY=check-if-go-installed
+check-if-go-installed:
+ifeq (,$(shell which go))
+    $(error Go is not installed. Please install Go to build the files.)
+endif
+
+.PHONY=intall-node-libraries
 install-node-libraries:
 	npm i
 	cd webapp-template && npm i
 
 .PHONY=install-protoc
 install-protoc: prereq
-	@echo Downloading from ${PROTOC_URL}
-	$(shell curl -sL ${PROTOC_URL} | tar xvf - -C ${PWD}/go/)
+ifeq (${PROTOC_OS}, Darwin)
+	@echo "Downloading protoc for OSX"
+	$(shell curl -sL ${PROTOC_URL_OSX}  | tar xvf - -C ${PWD}/go/)
+
+else
+	@echo "Downloading protoc for Linux"
+	$(shell -sL ${PROTOC_URL_LINUX}  | tar xvf - -C ${PWD}/go/)
+endif
 
 .PHONY=install-protoc-compiler
 install-protoc-compiler:
@@ -45,7 +55,7 @@ go-init:
 	cd grpc_server && go mod tidy
 
 .PHONY=build
-build: prereq install-node-libraries install-protoc install-protoc-compiler compile
+build: check-if-go-installed prereq install-node-libraries install-protoc install-protoc-compiler compile-go compile-ts
 
 
 .PHONY=run-server
