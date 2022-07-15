@@ -29,3 +29,20 @@ services:
       - ./grpc_server:/run
     # stdin_open: true
     tty: true
+  webpack:
+    image: node:latest
+    working_dir: /app
+    entrypoint: ["/app/start.sh"]
+    networks:
+      grpcstack:
+        aliases:
+          - webpack
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./webapp-template:/app
+
+networks:
+  grpcstack:

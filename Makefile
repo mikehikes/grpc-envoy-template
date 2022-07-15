@@ -16,6 +16,11 @@ prereq:
 	@mkdir -p ${PWD}/go
 	@mkdir -p ${PWD}/go/bin
 
+.PHONE=intall-node-libraries
+install-node-libraries:
+	npm i
+	cd webapp-template && npm i
+
 .PHONY=install-protoc
 install-protoc: prereq
 	@echo Downloading from ${PROTOC_URL}
@@ -40,12 +45,13 @@ go-init:
 	cd grpc_server && go mod tidy
 
 .PHONY=build
-build: prereq install-protoc install-protoc-compiler compile
+build: prereq install-node-libraries install-protoc install-protoc-compiler compile
 
 
 .PHONY=run-server
 start-server:
 	docker-compose up -d
+	echo "Web Server is running at http://localhost:8080"
 
 stop-server:
 	docker-compose down
