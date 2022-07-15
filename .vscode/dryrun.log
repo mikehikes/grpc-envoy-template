@@ -1,0 +1,14 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/michael/Development/grpc-envoy-template'
+mkdir -p /Users/michael/Development/grpc-envoy-template/go
+mkdir -p /Users/michael/Development/grpc-envoy-template/go/bin
+ 
+tar: Error opening archive: Unrecognized archive format
+
+echo Downloading from https://github.com/protocolbuffers/protobuf/releases/download/v21.1/protoc-21.1-Darwin-arm64.zip
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+make: Leaving directory `/Users/michael/Development/grpc-envoy-template'
+ 
+make: *** No rule to make target `compile', needed by `build'.
+
