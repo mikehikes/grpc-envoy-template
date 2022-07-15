@@ -1,3 +1,4 @@
 [submodule "webapp-template"]
 	path = webapp-template
 	url = https://github.com/mikehikes/webapp-template
+	branch = grpc_example
