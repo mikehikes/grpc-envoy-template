@@ -62,6 +62,7 @@ build: check-if-go-installed prereq install-node-libraries install-protoc instal
 start-server:
 	docker-compose up -d
 	echo "Web Server is running at http://localhost:8080"
+	echo "Please wait 60-90 seconds...."
 
 stop-server:
 	docker-compose down
