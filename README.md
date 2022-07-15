@@ -20,7 +20,7 @@ This repo is a template/example for implementing a protobuf-base microservice ru
 1. Clone the repo `git clone --recursive https://github.com/mikehikes/grpc-envoy-template.git`
    1. __The repo contains a submodule, so the recursive flag is needed to pull that submodule__
 2. `make start-server` or `docker-compose up`
-3. Wait until Webpack finishes compiling (2-3 minutes)
+3. Wait until Webpack and other processes finish compiling (4-6 minutes)
    1. These files may be pre-compiled in the future - but will be compiled on launch for demonstrative purposes
 4. Point your browser to `http://localhost:8080`
 
